@@ -1,0 +1,24 @@
+import mongoose from "mongoose";
+
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  status: {
+    type: String,
+    required: false,
+    trim: true,
+  },
+  vote: {
+    type: Number,
+  },
+});
+
+const UserModel = mongoose.model("users", UserSchema);
+
+export default UserModel;

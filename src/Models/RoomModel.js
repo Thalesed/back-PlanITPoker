@@ -20,6 +20,9 @@ const RoomSchema = new Schema({
       ref: 'users',
     },
   ],
+  show:{
+    type: Boolean, 
+  },
   expiresAt: {
     type: Date,
     required: true,

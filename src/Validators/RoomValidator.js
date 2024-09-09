@@ -6,13 +6,13 @@ const create = validateRequest({
   body: z.object({
     name: z.string({ required_error: "O nome é obrigatório" }),
     users: z.array(z.custom(mongoose.isValidObjectId, "O ID do usuário não é válido")).optional(),
+    
   }),
 });
 
 const get = validateRequest({
   params: z.object({
     id: z.string().nonempty("O código da Room não pode estar vazio"),
-
   }),
 });
 
@@ -21,6 +21,7 @@ const update = validateRequest({
     code: z.string().trim().optional(),
     name: z.string().trim().optional(),
     users: z.array(z.custom(mongoose.isValidObjectId, "O ID do usuário não é válido")).optional(),
+    show: z.boolean().optional(),
   }),
   params: z.object({
     id: z.string().nonempty("O código da Room não pode estar vazio"),

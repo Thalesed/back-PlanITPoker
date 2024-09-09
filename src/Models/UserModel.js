@@ -7,7 +7,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   status: {
     type: String,
@@ -17,6 +16,10 @@ const UserSchema = new Schema({
   vote: {
     type: Number,
   },
+  type: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const UserModel = mongoose.model("users", UserSchema);

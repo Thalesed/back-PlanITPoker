@@ -13,6 +13,7 @@ const create = validateRequest({
     name: z.string({ required_error: "O nome é obrigatório" }),
     status: z.string().optional(),
     vote: z.number().optional(),
+    type: z.boolean().optional(),
   }),
 });
 
@@ -27,6 +28,7 @@ const update = validateRequest({
     name: z.string().optional(),
     status: z.string().optional(),
     vote: z.number().optional(),
+    type: z.boolean().optional(),
   }),
 
   params: z.object({

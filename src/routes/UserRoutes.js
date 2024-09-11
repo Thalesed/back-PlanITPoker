@@ -10,8 +10,8 @@ userRoutes.route("/").post(UserValidator.create, UserController.create).get(User
 
 userRoutes
   .route("/:id")
-  .get(UserValidator.get, UserController.read)
-  .delete( UserValidator.destroy, UserController.destroy)
-  .put( UserValidator.update, UserController.update);
+  .get(verifyJwt, UserValidator.get, UserController.read)
+  .delete(verifyJwt, UserValidator.destroy, UserController.destroy)
+  .put(verifyJwt, UserValidator.update, UserController.update);
 
 export default userRoutes;

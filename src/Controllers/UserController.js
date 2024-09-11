@@ -1,13 +1,31 @@
 import UserModel from "../Models/UserModel.js";
-//import RefreshTokenModel from "../Models/RefreshTokenModel.js";
-//import { signSessionJwts, decodeRefreshToken } from "../Utils/general/jwt.js";
+import RefreshTokenModel from "../Models/RefreshTokenModel.js";
+import formatExpiresAt from "../Utils/General/formatExpiresAt.js";
+import { signSessionJwts, decodeRefreshToken } from "../Utils/General/jwt.js";
 
 class UserController {
     async create (req, res) {
         try{  
             const user = await UserModel.create(req.body);
 
-            return res.status(200).json(user);
+            
+            const { createdAt, updatedAt, password: pass, ...tokenUserData } = user;
+
+            const { accessToken, refreshToken } = signSessionJwts(tokenUserData._doc);
+            
+            const expiresAt = formatExpiresAt(process.env.REFRESH_TOKEN_EXPIRE);
+            
+
+            await RefreshTokenModel.create({
+                user: user._id,
+                token: refreshToken,
+                expiresAt,
+            });
+            return res
+                .status(200)
+                .cookie(refreshToken)
+                .json({ accessToken });
+
 
         } catch (error) {
             res.status(500).json({message: "/UserController: Deu ruim aqui no create!!", error: error.message});

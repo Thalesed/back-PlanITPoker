@@ -20,7 +20,7 @@ const update = validateRequest({
   body: z.object({
     code: z.string().trim().optional(),
     name: z.string().trim().optional(),
-    users: z.array(z.custom(mongoose.isValidObjectId, "O ID do usuário não é válido")).optional(),
+    users: z.array(z.custom(mongoose.isValidObjectId, "O ID do usuário não é válido")).max(16, "O número máximo de usuários é 16").optional(),
     show: z.boolean().optional(),
   }),
   params: z.object({

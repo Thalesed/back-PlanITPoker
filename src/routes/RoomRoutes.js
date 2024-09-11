@@ -6,13 +6,13 @@ import verifyJwt from "../Middlewares/VerifyJwt.js";
 
 const RoomRoutes = Router();
 
-RoomRoutes.route("/").post( RoomValidator.create, RoomController.create).get(RoomController.getAll);
+RoomRoutes.route("/").post(verifyJwt, RoomValidator.create, RoomController.create).get(RoomController.getAll);
 
 RoomRoutes
   .route("/:id")
-  .get( RoomValidator.get, RoomController.get)
-  .delete( RoomValidator.destroy, RoomController.destroy)
-  .put( RoomValidator.update, RoomController.update)
+  .get(verifyJwt, RoomValidator.get, RoomController.get)
+  .delete(verifyJwt, RoomValidator.destroy, RoomController.destroy)
+  .put(verifyJwt, RoomValidator.update, RoomController.update)
   
 RoomRoutes.put('/addUser/:id', RoomValidator.addUser, RoomController.addUser);
 

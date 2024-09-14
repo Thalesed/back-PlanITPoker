@@ -19,7 +19,12 @@ const UserSchema = new Schema({
   type: {
     type: Boolean,
     default: false,
-  }
+  },
+  expiresAt: {
+    type: Date,
+    required: true,
+    expires: 0 
+  },
 });
 
 const UserModel = mongoose.model("users", UserSchema);

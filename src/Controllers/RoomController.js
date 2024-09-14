@@ -83,7 +83,6 @@ class RoomController {
             return res.status(404).json({ error: "Room not found" });
           }
       
-          // Verificar e adicionar usuários
           const usersToAdd = [];
           for (const userId of users) {
             const user = await UserModel.findById(userId);

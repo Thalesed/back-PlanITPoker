@@ -6,7 +6,7 @@ import { signSessionJwts, decodeRefreshToken } from "../Utils/General/jwt.js";
 class UserController {
     async create (req, res) {
         try{  
-            const user = await UserModel.create(req.body);
+            const user = await UserModel.create({...req.body,expiresAt: new Date(Date.now() + (3600 * 60 * 24)), });
 
             
             const { createdAt, updatedAt, password: pass, ...tokenUserData } = user;

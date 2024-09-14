@@ -20,6 +20,10 @@ const RoomSchema = new Schema({
       ref: 'users',
     },
   ],
+  maxUsers: {
+    type: Number,
+    default: 18,
+  },
   show:{
     type: Boolean, 
   },

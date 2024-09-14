@@ -1,7 +1,7 @@
 import UserModel from "../Models/UserModel.js";
 import RefreshTokenModel from "../Models/RefreshTokenModel.js";
 import formatExpiresAt from "../Utils/General/formatExpiresAt.js";
-import { signSessionJwts, decodeRefreshToken } from "../Utils/General/jwt.js";
+import { signSessionJwts} from "../Utils/General/jwt.js";
 
 class UserController {
     async create (req, res) {
@@ -9,7 +9,7 @@ class UserController {
             const user = await UserModel.create({...req.body,expiresAt: new Date(Date.now() + (3600 * 60 * 24)), });
 
             
-            const { createdAt, updatedAt, password: pass, ...tokenUserData } = user;
+            const {  ...tokenUserData } = user;
 
             const { accessToken, refreshToken } = signSessionJwts(tokenUserData._doc);
             
@@ -46,10 +46,10 @@ class UserController {
 
   async read (req, res) {
     try {
-        const{ id } = req.params;
-          const user = await UserModel.find();
+        
+        const user = await UserModel.find();
 
-          return res.status(200).json(user); 
+        return res.status(200).json(user); 
 
 
     } catch (error) {
